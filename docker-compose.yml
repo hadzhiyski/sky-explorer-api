@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "31080:80"
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: Qwerty1@456
+      POSTGRES_DB: sky-explorer-db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    ports:
+      - "31180:80"
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@sky-explorer.com
+      PGADMIN_DEFAULT_PASSWORD: Qwerty1@456
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+volumes:
+  db-data:
+  pgadmin:
