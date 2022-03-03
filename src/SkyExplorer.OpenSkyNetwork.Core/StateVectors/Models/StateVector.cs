@@ -6,7 +6,7 @@ public class StateVector
     public string? CallSign { get; set; }
     public string OriginCountry { get; set; } = null!;
     public DateTimeOffset? TimePosition { get; set; }
-    public DateTimeOffset LastContact { get; set; }
+    public DateTimeOffset? LastContact { get; set; }
     public double? Longitude { get; set; }
     public double? Latitude { get; set; }
     public double? BarometricAltitude { get; set; }

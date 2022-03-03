@@ -20,8 +20,7 @@ public class StateVectorsController : ControllerBase
     public async Task<IActionResult> Get(string icao24, int? time = null)
     {
         var result = await _stateVectorsService.GetStateVectorsByIcao24Async(icao24, time);
-        
-        throw new NotImplementedException();
+        return Ok(result);
     }
 
     [HttpGet]
@@ -37,8 +36,8 @@ public class StateVectorsController : ControllerBase
             MinLatitude = minLatitude,
             MinLongitude = minLongitude,
         };
+        
         var result = await _stateVectorsService.GetStateVectorsByBoundingBoxAsync(bbox);
-
-        throw new NotImplementedException();
+        return Ok(result);
     }
 }
