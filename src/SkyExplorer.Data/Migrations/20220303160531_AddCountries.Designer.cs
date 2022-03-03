@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SkyExplorer.Data;
 using SkyExplorer.Data.Models;
+using SkyExplorer.Common.Models;
 
 #nullable disable
 

@@ -9,7 +9,7 @@ public class CountryService : ICountryService
 
     public CountryService(ISkyExplorerDbContext dbContext)
     {
-        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _dbContext = dbContext;
     }
 
     public async Task<IReadOnlyCollection<Models.Country>> GetCountriesAsync()

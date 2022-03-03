@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SkyExplorer.Data.Models;
+using SkyExplorer.Common.Models;
 
 #nullable disable
 

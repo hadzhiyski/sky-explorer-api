@@ -12,7 +12,7 @@ public class CountriesController : ControllerBase
 
     public CountriesController(ICountryService countryService)
     {
-        _countryService = countryService ?? throw new ArgumentNullException(nameof(countryService));
+        _countryService = countryService;
     }
 
     [HttpGet]

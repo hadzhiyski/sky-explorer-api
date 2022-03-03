@@ -1,3 +1,5 @@
+using SkyExplorer.Common.Models;
+
 namespace SkyExplorer.Data.Models;
 
 public class Country

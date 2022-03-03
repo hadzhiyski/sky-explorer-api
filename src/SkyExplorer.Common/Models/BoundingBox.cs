@@ -1,4 +1,4 @@
-namespace SkyExplorer.Data.Models;
+namespace SkyExplorer.Common.Models;
 
 public class BoundingBox
 {

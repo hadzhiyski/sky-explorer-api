@@ -1,3 +1,4 @@
+using SkyExplorer.Common.Models;
 using SkyExplorer.Data.Models;
 
 namespace SkyExplorer.Data.Seeder;
