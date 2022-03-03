@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyExplorer.Data", "src\Sky
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyExplorer.Data.Seeder", "tools\SkyExplorer.Data.Seeder\SkyExplorer.Data.Seeder.csproj", "{6C5967EB-9A6A-4F4F-B9AA-78070432A863}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyExplorer.Core", "src\SkyExplorer.Core\SkyExplorer.Core.csproj", "{91E99769-C613-4DC4-9E59-168911987EF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{6C5967EB-9A6A-4F4F-B9AA-78070432A863}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C5967EB-9A6A-4F4F-B9AA-78070432A863}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C5967EB-9A6A-4F4F-B9AA-78070432A863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91E99769-C613-4DC4-9E59-168911987EF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91E99769-C613-4DC4-9E59-168911987EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91E99769-C613-4DC4-9E59-168911987EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91E99769-C613-4DC4-9E59-168911987EF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

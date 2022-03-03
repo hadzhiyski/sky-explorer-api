@@ -4,7 +4,7 @@ using SkyExplorer.Data.Models;
 
 namespace SkyExplorer.Data;
 
-public class SkyExplorerDbContext : DbContext
+public class SkyExplorerDbContext : DbContext, ISkyExplorerDbContext
 {
     public SkyExplorerDbContext(DbContextOptions<SkyExplorerDbContext> options)
         : base(options)

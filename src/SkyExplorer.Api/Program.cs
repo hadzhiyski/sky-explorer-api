@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SkyExplorer.Core.Country;
 using SkyExplorer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<SkyExplorerDbContext>(opts =>
 {
     opts.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<ISkyExplorerDbContext>(services => services.GetRequiredService<SkyExplorerDbContext>());
+builder.Services.AddTransient<ICountryService, CountryService>();
 
 var app = builder.Build();
 

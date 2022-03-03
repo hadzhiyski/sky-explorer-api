@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\SkyExplorer.Core\SkyExplorer.Core.csproj" />
       <ProjectReference Include="..\SkyExplorer.Data\SkyExplorer.Data.csproj" />
     </ItemGroup>
 
