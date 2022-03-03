@@ -16,6 +16,7 @@ public class CountriesController : ControllerBase
     }
 
     [HttpGet]
+    [ResponseCache(CacheProfileName = nameof(GetCountriesAsync))]
     public async Task<IEnumerable<Country>> GetCountriesAsync()
     {
         var countries = await _countryService.GetCountriesAsync();
