@@ -18,7 +18,7 @@ public class StateVectorsApiService : IStateVectorsApiService
         _openSkyApiOptions = openSkyApiOptions.Value;
     }
 
-    public async Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByIcao24Async(string icao24, int? time)
+    public async Task<IReadOnlyCollection<StateVector>> GetStateVectorsByIcao24Async(string icao24, int? time)
     {
         var httpClient = _httpClientFactory.CreateClient();
         httpClient.BaseAddress = new Uri(_openSkyApiOptions.BaseUrl);
@@ -42,7 +42,7 @@ public class StateVectorsApiService : IStateVectorsApiService
         return MapStateVectors(response);
     }
 
-    public async Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByBoundingBoxAsync(BoundingBox bbox)
+    public async Task<IReadOnlyCollection<StateVector>> GetStateVectorsByBoundingBoxAsync(BoundingBox bbox)
     {
         var httpClient = _httpClientFactory.CreateClient();
         httpClient.BaseAddress = new Uri(_openSkyApiOptions.BaseUrl);
@@ -65,9 +65,9 @@ public class StateVectorsApiService : IStateVectorsApiService
         return MapStateVectors(response);
     }
 
-    private static IReadOnlyCollection<StateVector>? MapStateVectors(GetStateVectorsResponse? response)
+    private static IReadOnlyCollection<StateVector> MapStateVectors(GetStateVectorsResponse? response)
     {
-        return response?.States.Select(state =>
+        var vectors = response?.States.Select(state =>
         {
             var timePositionParsed = int.TryParse(state[3]?.ToString(), out var timePosition);
             var lastContactParsed = int.TryParse(state[4]?.ToString(), out var lastContact);
@@ -102,5 +102,7 @@ public class StateVectorsApiService : IStateVectorsApiService
                 PositionSource = (PositionSource) (positionSource ?? PositionSource.Unknown)
             };
         }).ToList();
+
+        return vectors ?? new List<StateVector>();
     }
 }

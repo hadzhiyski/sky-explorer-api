@@ -17,13 +17,13 @@ public class StateVectorsFacade : IStateVectorsFacade
         _countryService = countryService;
     }
 
-    public Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByIcao24Async(string icao24, int? time) =>
+    public Task<IReadOnlyCollection<StateVector>> GetStateVectorsByIcao24Async(string icao24, int? time) =>
         _stateVectorsApi.GetStateVectorsByIcao24Async(icao24, time);
 
-    public Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByBoundingBoxAsync(BoundingBox bbox) =>
+    public Task<IReadOnlyCollection<StateVector>> GetStateVectorsByBoundingBoxAsync(BoundingBox bbox) =>
         _stateVectorsApi.GetStateVectorsByBoundingBoxAsync(bbox);
 
-    public async Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByCountryAsync(string countryAlpha2)
+    public async Task<IReadOnlyCollection<StateVector>> GetStateVectorsByCountryAsync(string countryAlpha2)
     {
         var country = await _countryService.GetCountryByAlpha2Async(countryAlpha2);
 

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SkyExplorer.Common.Models;
 using SkyExplorer.Core.Airport;
+using SkyExplorer.Core.Airport.Models;
 
 namespace SkyExplorer.Api.Controllers;
 
@@ -17,15 +18,24 @@ public class AirportsController : ControllerBase
 
     [HttpGet]
     [Route("{country}")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<Airport>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAirportsByCountryAsync(string country)
     {
-        var result = await _airportService.GetAirportsByCountryAsync(country);
-        return Ok(result);
+        try
+        {
+            var result = await _airportService.GetAirportsByCountryAsync(country);
+            return Ok(result);
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
     }
     
     [HttpGet]
     [Route("{la-min}/{lo-min}/{la-max}/{lo-max}")]
-    public async Task<IActionResult> GetAirportsByBoundingBoxAsync([FromRoute(Name = "la-min")] decimal minLatitude,
+    public async Task<IReadOnlyCollection<Airport>> GetAirportsByBoundingBoxAsync([FromRoute(Name = "la-min")] decimal minLatitude,
         [FromRoute(Name = "lo-min")] decimal minLongitude, [FromRoute(Name = "la-max")] decimal maxLatitude,
         [FromRoute(Name = "lo-max")] decimal maxLongitude)
     {
@@ -39,6 +49,6 @@ public class AirportsController : ControllerBase
 
         var result = await _airportService.GetAirportsByBoundingBoxAsync(bbox);
 
-        return Ok(result);
+        return result;
     }
 }

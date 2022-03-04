@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SkyExplorer.Api.Constants;
 using SkyExplorer.Common.Models;
 using SkyExplorer.OpenSkyNetwork.Core.StateVectors;
+using SkyExplorer.OpenSkyNetwork.Core.StateVectors.Models;
 
 namespace SkyExplorer.Api.Controllers.OpenSky;
 
@@ -19,14 +20,16 @@ public class StateVectorsController : ControllerBase
 
     [HttpGet]
     [Route("/icao24/{icao24}/{time:int?}")]
-    public async Task<IActionResult> GetStateVectorsByIcao24Async(string icao24, int? time = null)
+    public async Task<IReadOnlyCollection<StateVector>> GetStateVectorsByIcao24Async(string icao24, int? time = null)
     {
         var result = await _stateVectorsFacade.GetStateVectorsByIcao24Async(icao24, time);
-        return Ok(result);
+        return result;
     }
     
     [HttpGet]
     [Route("{country}")]
+    [ProducesResponseType(typeof(IReadOnlyCollection<StateVector>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetStateVectorsByCountryAsync(string country)
     {
         try
@@ -42,7 +45,7 @@ public class StateVectorsController : ControllerBase
 
     [HttpGet]
     [Route("{la-min}/{lo-min}/{la-max}/{lo-max}")]
-    public async Task<IActionResult> GetByBoundingBox([FromRoute(Name = "la-min")] decimal minLatitude,
+    public async Task<IReadOnlyCollection<StateVector>> GetByBoundingBox([FromRoute(Name = "la-min")] decimal minLatitude,
         [FromRoute(Name = "lo-min")] decimal minLongitude, [FromRoute(Name = "la-max")] decimal maxLatitude,
         [FromRoute(Name = "lo-max")] decimal maxLongitude)
     {
@@ -55,6 +58,6 @@ public class StateVectorsController : ControllerBase
         };
         
         var result = await _stateVectorsFacade.GetStateVectorsByBoundingBoxAsync(bbox);
-        return Ok(result);
+        return result;
     }
 }
