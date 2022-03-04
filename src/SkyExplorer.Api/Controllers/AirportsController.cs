@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SkyExplorer.Common.Models;
 using SkyExplorer.Core.Airport;
-using SkyExplorer.Core.Airport.Models;
+using SkyExplorer.Api.Models.Airports;
 
 namespace SkyExplorer.Api.Controllers;
 
@@ -10,7 +10,7 @@ namespace SkyExplorer.Api.Controllers;
 public class AirportsController : ControllerBase
 {
     private readonly IAirportService _airportService;
-    
+
     public AirportsController(IAirportService airportService)
     {
         _airportService = airportService;
@@ -25,17 +25,30 @@ public class AirportsController : ControllerBase
         try
         {
             var result = await _airportService.GetAirportsByCountryAsync(country);
-            return Ok(result);
+            var airports = result.Select(airport => new Airport
+            {
+                Id = airport.Id,
+                Name = airport.Name,
+                Type = airport.Type,
+                Latitude = airport.Latitude,
+                Longitude = airport.Longitude,
+                Iata = airport.Iata,
+                Icao = airport.Icao,
+                HomeUrl = airport.HomeUrl,
+                WikiUrl = airport.WikiUrl,
+            }).ToList();
+            return Ok(airports);
         }
         catch (KeyNotFoundException)
         {
             return NotFound();
         }
     }
-    
+
     [HttpGet]
     [Route("{la-min}/{lo-min}/{la-max}/{lo-max}")]
-    public async Task<IReadOnlyCollection<Airport>> GetAirportsByBoundingBoxAsync([FromRoute(Name = "la-min")] decimal minLatitude,
+    public async Task<IReadOnlyCollection<Airport>> GetAirportsByBoundingBoxAsync(
+        [FromRoute(Name = "la-min")] decimal minLatitude,
         [FromRoute(Name = "lo-min")] decimal minLongitude, [FromRoute(Name = "la-max")] decimal maxLatitude,
         [FromRoute(Name = "lo-max")] decimal maxLongitude)
     {
@@ -49,6 +62,17 @@ public class AirportsController : ControllerBase
 
         var result = await _airportService.GetAirportsByBoundingBoxAsync(bbox);
 
-        return result;
+        return result.Select(airport => new Airport
+        {
+            Id = airport.Id,
+            Name = airport.Name,
+            Type = airport.Type,
+            Latitude = airport.Latitude,
+            Longitude = airport.Longitude,
+            Iata = airport.Iata,
+            Icao = airport.Icao,
+            HomeUrl = airport.HomeUrl,
+            WikiUrl = airport.WikiUrl,
+        }).ToList();
     }
 }

@@ -24,6 +24,7 @@ public class AirportService : IAirportService
             .Select(airport =>
                 new Models.Airport
                 {
+                    Id = airport.Id,
                     Name = airport.Name,
                     Type = airport.Type,
                     Latitude = airport.Latitude,

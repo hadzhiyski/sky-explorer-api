@@ -1,6 +1,6 @@
 using SkyExplorer.Common.Models;
 
-namespace SkyExplorer.Core.Airport.Models;
+namespace SkyExplorer.Api.Models.Airports;
 
 public class Airport
 {

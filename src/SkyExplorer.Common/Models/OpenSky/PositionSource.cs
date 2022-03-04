@@ -1,4 +1,4 @@
-namespace SkyExplorer.OpenSkyNetwork.Core.StateVectors.Models;
+namespace SkyExplorer.Common.Models.OpenSky;
 
 public enum PositionSource
 {

@@ -1,6 +1,6 @@
 using SkyExplorer.Common.Models.OpenSky;
 
-namespace SkyExplorer.OpenSkyNetwork.Core.StateVectors.Models;
+namespace SkyExplorer.Api.Models.OpenSky;
 
 public class StateVector
 {

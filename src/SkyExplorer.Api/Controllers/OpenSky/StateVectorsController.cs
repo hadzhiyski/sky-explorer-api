@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SkyExplorer.Api.Constants;
 using SkyExplorer.Common.Models;
 using SkyExplorer.OpenSkyNetwork.Core.StateVectors;
-using SkyExplorer.OpenSkyNetwork.Core.StateVectors.Models;
+using SkyExplorer.Api.Models.OpenSky;
 
 namespace SkyExplorer.Api.Controllers.OpenSky;
 
@@ -23,7 +23,25 @@ public class StateVectorsController : ControllerBase
     public async Task<IReadOnlyCollection<StateVector>> GetStateVectorsByIcao24Async(string icao24, int? time = null)
     {
         var result = await _stateVectorsFacade.GetStateVectorsByIcao24Async(icao24, time);
-        return result;
+        return result.Select(vector => new StateVector
+        {
+            Icao24 = vector.Icao24,
+            Latitude = vector.Latitude,
+            Longitude = vector.Latitude,
+            Squawk = vector.Squawk,
+            Velocity = vector.Velocity,
+            BarometricAltitude = vector.BarometricAltitude,
+            CallSign = vector.CallSign,
+            GeoAltitude = vector.GeoAltitude,
+            LastContact = vector.LastContact,
+            OnGround = vector.OnGround,
+            OriginCountry = vector.OriginCountry,
+            PositionSource = vector.PositionSource,
+            TimePosition = vector.TimePosition,
+            TrueTrack = vector.TrueTrack,
+            VerticalRate = vector.VerticalRate,
+            SpecialPurposeIndicator = vector.SpecialPurposeIndicator,
+        }).ToList();
     }
     
     [HttpGet]
@@ -35,7 +53,26 @@ public class StateVectorsController : ControllerBase
         try
         {
             var result = await _stateVectorsFacade.GetStateVectorsByCountryAsync(country);
-            return Ok(result);
+            var vectors = result.Select(vector => new StateVector
+            {
+                Icao24 = vector.Icao24,
+                Latitude = vector.Latitude,
+                Longitude = vector.Latitude,
+                Squawk = vector.Squawk,
+                Velocity = vector.Velocity,
+                BarometricAltitude = vector.BarometricAltitude,
+                CallSign = vector.CallSign,
+                GeoAltitude = vector.GeoAltitude,
+                LastContact = vector.LastContact,
+                OnGround = vector.OnGround,
+                OriginCountry = vector.OriginCountry,
+                PositionSource = vector.PositionSource,
+                TimePosition = vector.TimePosition,
+                TrueTrack = vector.TrueTrack,
+                VerticalRate = vector.VerticalRate,
+                SpecialPurposeIndicator = vector.SpecialPurposeIndicator,
+            }).ToList();
+            return Ok(vectors);
         }
         catch (KeyNotFoundException)
         {
@@ -58,6 +95,24 @@ public class StateVectorsController : ControllerBase
         };
         
         var result = await _stateVectorsFacade.GetStateVectorsByBoundingBoxAsync(bbox);
-        return result;
+        return result.Select(vector => new StateVector
+        {
+            Icao24 = vector.Icao24,
+            Latitude = vector.Latitude,
+            Longitude = vector.Latitude,
+            Squawk = vector.Squawk,
+            Velocity = vector.Velocity,
+            BarometricAltitude = vector.BarometricAltitude,
+            CallSign = vector.CallSign,
+            GeoAltitude = vector.GeoAltitude,
+            LastContact = vector.LastContact,
+            OnGround = vector.OnGround,
+            OriginCountry = vector.OriginCountry,
+            PositionSource = vector.PositionSource,
+            TimePosition = vector.TimePosition,
+            TrueTrack = vector.TrueTrack,
+            VerticalRate = vector.VerticalRate,
+            SpecialPurposeIndicator = vector.SpecialPurposeIndicator,
+        }).ToList();
     }
 }

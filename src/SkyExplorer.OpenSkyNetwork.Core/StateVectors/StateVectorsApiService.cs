@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SkyExplorer.Common.Models;
+using SkyExplorer.Common.Models.OpenSky;
 using SkyExplorer.OpenSkyNetwork.Core.StateVectors.Models;
 
 namespace SkyExplorer.OpenSkyNetwork.Core.StateVectors;
