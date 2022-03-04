@@ -44,6 +44,7 @@ builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddHttpClient();
 builder.Services.AddTransient<IStateVectorsApiService, StateVectorsApiService>();
 builder.Services.AddTransient<IStateVectorsFacade, StateVectorsFacade>();
+builder.Services.AddTransient<IAirportService, AirportService>();
 
 var app = builder.Build();
 

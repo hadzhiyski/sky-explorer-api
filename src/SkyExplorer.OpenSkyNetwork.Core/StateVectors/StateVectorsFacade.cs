@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SkyExplorer.Common.Models;
+using SkyExplorer.Core.Country;
 using SkyExplorer.Data;
 using SkyExplorer.OpenSkyNetwork.Core.StateVectors.Models;
 
@@ -8,12 +9,12 @@ namespace SkyExplorer.OpenSkyNetwork.Core.StateVectors;
 public class StateVectorsFacade : IStateVectorsFacade
 {
     private readonly IStateVectorsApiService _stateVectorsApi;
-    private readonly ISkyExplorerDbContext _dbContext;
+    private readonly ICountryService _countryService;
 
-    public StateVectorsFacade(IStateVectorsApiService stateVectorsApi, ISkyExplorerDbContext dbContext)
+    public StateVectorsFacade(IStateVectorsApiService stateVectorsApi, ICountryService countryService)
     {
         _stateVectorsApi = stateVectorsApi;
-        _dbContext = dbContext;
+        _countryService = countryService;
     }
 
     public Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByIcao24Async(string icao24, int? time) =>
@@ -22,16 +23,10 @@ public class StateVectorsFacade : IStateVectorsFacade
     public Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByBoundingBoxAsync(BoundingBox bbox) =>
         _stateVectorsApi.GetStateVectorsByBoundingBoxAsync(bbox);
 
-    public async Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByCountryAsync(string country)
+    public async Task<IReadOnlyCollection<StateVector>?> GetStateVectorsByCountryAsync(string countryAlpha2)
     {
-        // ReSharper disable once SpecifyStringComparison
-        var countryByAlpha2 =
-            await _dbContext.Countries.SingleOrDefaultAsync(c => c.Alpha2.ToLower() == country.ToLower());
-        if (countryByAlpha2 == null)
-        {
-            throw new KeyNotFoundException($"Country '{country}' not found");
-        }
+        var country = await _countryService.GetCountryByAlpha2Async(countryAlpha2);
 
-        return await GetStateVectorsByBoundingBoxAsync(countryByAlpha2.BoundingBox);
+        return await GetStateVectorsByBoundingBoxAsync(country.BoundingBox);
     }
 }
