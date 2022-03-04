@@ -4,8 +4,8 @@ namespace SkyExplorer.Data.Models;
 
 public class Country
 {
-    public int Id { get; set; }
+    public string Alpha2 { get; set; } = null!;
     public string Name { get; set; } = null!;
-    public string Alpha2Code { get; set; } = null!;
     public BoundingBox BoundingBox { get; set; } = null!;
+    public virtual ICollection<Airport> Airports { get; set; } = null!;
 }
