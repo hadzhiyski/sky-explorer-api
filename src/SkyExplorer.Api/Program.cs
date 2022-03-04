@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using SkyExplorer.Api.Constants;
 using SkyExplorer.Api.Infrastructure;
+using SkyExplorer.Core.Airport;
 using SkyExplorer.Core.Country;
 using SkyExplorer.Data;
 using SkyExplorer.OpenSkyNetwork.Core;
@@ -14,6 +17,10 @@ builder.Services.AddControllers(opts =>
 {
     opts.CacheProfiles.Add(CacheProfiles.GetCountries, CacheProfiles.Profiles[CacheProfiles.GetCountries]);
     opts.CacheProfiles.Add(CacheProfiles.OpenSky, CacheProfiles.Profiles[CacheProfiles.OpenSky]);
+}).AddNewtonsoftJson(opts =>
+{
+    opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    opts.SerializerSettings.Converters.Add(new StringEnumConverter(new CamelCaseNamingStrategy()));
 });
 builder.Services.AddRouting(opts =>
 {
@@ -23,6 +30,7 @@ builder.Services.AddRouting(opts =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opts => { opts.OperationFilter<ReApplyOptionalRouteParameterOperationFilter>(); });
+builder.Services.AddSwaggerGenNewtonsoftSupport();
 
 builder.Services.AddDbContext<SkyExplorerDbContext>(opts =>
 {
