@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SkyExplorer.Api.Constants;
 using SkyExplorer.Api.Models.Countries;
 using SkyExplorer.Core.Country;
 
@@ -16,7 +17,7 @@ public class CountriesController : ControllerBase
     }
 
     [HttpGet]
-    [ResponseCache(CacheProfileName = nameof(GetCountriesAsync))]
+    [ResponseCache(CacheProfileName = CacheProfiles.GetCountries)]
     public async Task<IEnumerable<Country>> GetCountriesAsync()
     {
         var countries = await _countryService.GetCountriesAsync();

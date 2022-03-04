@@ -1,6 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SkyExplorer.Api.Controllers;
+using SkyExplorer.Api.Constants;
 using SkyExplorer.Api.Infrastructure;
 using SkyExplorer.Core.Country;
 using SkyExplorer.Data;
@@ -13,10 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opts =>
 {
-    opts.CacheProfiles.Add(nameof(CountriesController.GetCountriesAsync), new CacheProfile
-    {
-        Duration = (int) TimeSpan.FromDays(1).TotalSeconds
-    });
+    opts.CacheProfiles.Add(CacheProfiles.GetCountries, CacheProfiles.Profiles[CacheProfiles.GetCountries]);
+    opts.CacheProfiles.Add(CacheProfiles.OpenSky, CacheProfiles.Profiles[CacheProfiles.OpenSky]);
 });
 builder.Services.AddRouting(opts =>
 {

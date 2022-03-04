@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SkyExplorer.Api.Constants;
 using SkyExplorer.Common.Models;
 using SkyExplorer.OpenSkyNetwork.Core.StateVectors;
 
@@ -6,6 +7,7 @@ namespace SkyExplorer.Api.Controllers.OpenSky;
 
 [ApiController]
 [Route("opensky/states")]
+[ResponseCache(CacheProfileName = CacheProfiles.OpenSky)]
 public class StateVectorsController : ControllerBase
 {
     private readonly IStateVectorsFacade _stateVectorsFacade;
