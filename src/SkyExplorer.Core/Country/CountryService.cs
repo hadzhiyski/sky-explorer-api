@@ -16,8 +16,7 @@ public class CountryService : ICountryService
     {
         return await _dbContext.Countries.Select(country => new Models.Country
         {
-            Id = country.Id,
-            Alpha2 = country.Alpha2Code,
+            Alpha2 = country.Alpha2,
             Name = country.Name,
         }).ToListAsync();
     }

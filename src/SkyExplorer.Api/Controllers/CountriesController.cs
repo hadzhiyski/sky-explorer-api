@@ -22,7 +22,6 @@ public class CountriesController : ControllerBase
         var countries = await _countryService.GetCountriesAsync();
         return countries.Select(country => new Country
         {
-            Id = country.Id,
             Name = country.Name,
             Alpha2 = country.Alpha2,
         }).ToList();

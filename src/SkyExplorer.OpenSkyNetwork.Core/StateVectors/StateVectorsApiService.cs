@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Net.Http.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -8,12 +7,12 @@ using SkyExplorer.OpenSkyNetwork.Core.StateVectors.Models;
 
 namespace SkyExplorer.OpenSkyNetwork.Core.StateVectors;
 
-public class StateVectorsService : IStateVectorsService
+public class StateVectorsApiService : IStateVectorsApiService
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly OpenSkyApiOptions _openSkyApiOptions;
 
-    public StateVectorsService(IHttpClientFactory httpClientFactory, IOptions<OpenSkyApiOptions> openSkyApiOptions)
+    public StateVectorsApiService(IHttpClientFactory httpClientFactory, IOptions<OpenSkyApiOptions> openSkyApiOptions)
     {
         _httpClientFactory = httpClientFactory;
         _openSkyApiOptions = openSkyApiOptions.Value;

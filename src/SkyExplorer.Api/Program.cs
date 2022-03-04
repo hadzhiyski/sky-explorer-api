@@ -37,7 +37,8 @@ builder.Services.Configure<OpenSkyApiOptions>(builder.Configuration.GetSection(n
 builder.Services.AddScoped<ISkyExplorerDbContext>(services => services.GetRequiredService<SkyExplorerDbContext>());
 builder.Services.AddTransient<ICountryService, CountryService>();
 builder.Services.AddHttpClient();
-builder.Services.AddTransient<IStateVectorsService, StateVectorsService>();
+builder.Services.AddTransient<IStateVectorsApiService, StateVectorsApiService>();
+builder.Services.AddTransient<IStateVectorsFacade, StateVectorsFacade>();
 
 var app = builder.Build();
 
